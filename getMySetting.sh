@@ -2,21 +2,28 @@
 
 PKG=`dpkg -l | grep "Automates interactive applications"`
 
+echo "1. check package!"
 if [ "$PKG" ]; then
-  echo "ready!"
+  echo "- ok."
 else
   sudo apt update
   sudo apt install -y expect
 fi
 
+echo "2. get tokens!"
+wget http://zerolive.iptime.org:204/github_token_zerolive7.txt
+TOKEN=`cat github_token_zerolive7.txt`
+echo "TOKEN="$TOKEN
+rm -rf github_token_zerolive7.txt
+
 sleep 1
 
-echo "git clone mySettings...."
+echo "3. git clone mySettings...."
 
 expect <<EOF
 spawn git clone https://github.com/leonardo204/mySettings.git
 expect "Username for" { send "leonardo204\r" }
-expect "Password for" { send "096d537d9679f6462434c2f60c3c89b413b7b4a3\r" }
+expect "Password for" { send "$TOKEN\r" }
 interact
 expect eof
 EOF
