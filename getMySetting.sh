@@ -14,7 +14,7 @@ echo "2. get tokens!"
 wget http://zerolive.iptime.org:204/github_token_zerolive7.txt
 TOKEN=`cat github_token_zerolive7.txt`
 echo "TOKEN="$TOKEN
-rm -rf github_token_zerolive7.txt
+sudo rm -rf github_token_zerolive7.txt
 
 sleep 1
 
@@ -27,5 +27,7 @@ expect "Password for" { send "$TOKEN\r" }
 interact
 expect eof
 EOF
+
+sudo rm -rf ./mySettings/.git
 
 echo ""
