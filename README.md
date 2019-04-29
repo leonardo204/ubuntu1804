@@ -17,4 +17,6 @@ rmDockerContainer.sh
 getMySettings.sh 
 - get mySettings files
 
-
+xcp 
+- copy utiliy 
+- It same as xcopy on windows
