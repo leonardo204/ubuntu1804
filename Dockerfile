@@ -19,3 +19,4 @@ WORKDIR /home/zerolive
 
 # copy files
 COPY ./mySettings/*.tgz /tmp/
+COPY ./xcp /tmp/

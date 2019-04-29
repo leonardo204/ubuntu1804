@@ -1,0 +1,47 @@
+#!/bin/bash
+
+###############################################################################################################
+#
+# Utilities to copy of all files from src to dest dir.
+# It works as similiar to xcopy on windows system.
+# If you use this script, please don't type any asterisk for copying becase it makes to hide .foo or .bar 
+#
+
+ECHO=
+
+if [ $# -eq 2 ]; then
+  SRC=$1
+  DEST=$2
+elif [ $# -gt 2 ] && [ "${1:0:1}" == "-" ]; then
+  OPT=$1
+  src_idx=0
+  cnt=0
+  let total=$#-1
+  for l in $*; do
+    if [ "$l" == "$OPT" ] ; then
+      let cnt=$cnt+1
+      continue;
+    elif [ $cnt -eq $total ] ; then
+      DEST=$l
+    else
+      SRC[$src_idx]=$l 
+      let src_idx=$src_idx+1
+    fi
+    let cnt=$cnt+1
+  done
+else
+  echo "USAGE: ./xcp {opt} SRC DEST"
+  echo "EXIT (args=$# argv=$*)"
+  exit
+fi
+
+echo "./xcp $OPT ${SRC[@]} ${DEST[@]}"
+
+SRC_LIST=`ls -a $SRC`
+
+for l in ${SRC_LIST[@]}; do
+  if [ "$l" == "." ] || [ "$l" == ".." ]; then
+    continue;
+  fi
+  $ECHO cp $OPT $SRC/$l $DEST
+done
