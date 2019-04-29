@@ -1,5 +1,3 @@
-# ubuntu1804
-
 # USAGE
 execute run.sh
 
